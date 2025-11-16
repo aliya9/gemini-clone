@@ -5,6 +5,7 @@ import { assets } from "../../assets/assets";
 const Main = () => {
     const [input, setInput] = useState("")
     const [showSuggestions, setShowSuggestions] = useState(true)
+    const [isTyping, setIsTyping] = useState(false)
 
     const suggestions = [
         {
@@ -28,10 +29,14 @@ const Main = () => {
     const handleSuggestionClick = (text) => {
         setInput(text)
         setShowSuggestions(false)
+        setIsTyping(true)
     }
 
     return (
         <div className="main">
+            <div className="main-header">
+                <h1 className="app-title">Gemini Clone</h1>
+            </div>
             <div className="main-container">
                 <div className="main-content">
                     <div className={`greet-wrapper ${showSuggestions ? 'show' : 'hide'}`}>
@@ -59,7 +64,7 @@ const Main = () => {
                     </div>
                 </div>
 
-                <div className="main-bottom">
+                <div className={`main-bottom ${isTyping ? 'centered' : ''}`}>
                     <div className="input-container">
                         <input 
                             type="text" 
@@ -69,13 +74,20 @@ const Main = () => {
                                 setInput(e.target.value)
                                 if (e.target.value) {
                                     setShowSuggestions(false)
+                                    setIsTyping(true)
                                 } else {
                                     setShowSuggestions(true)
+                                    setIsTyping(false)
                                 }
                             }}
                             onFocus={() => {
                                 if (!input) {
                                     setShowSuggestions(true)
+                                }
+                            }}
+                            onBlur={() => {
+                                if (!input) {
+                                    setIsTyping(false)
                                 }
                             }}
                         />

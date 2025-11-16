@@ -6,7 +6,7 @@
     justify-content: space-between;
     background-color: #f0f4f9;
     padding: 12px;
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-right: 1px solid #e8eaed;
     position: relative;
     overflow: hidden;
@@ -38,7 +38,7 @@
     background: transparent;
     border-radius: 50%;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 4px;
     padding: 0;
 }
@@ -63,7 +63,7 @@
     font-weight: 500;
     color: #1f1f1f;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     justify-content: flex-start;
     margin-top: 8px;
@@ -115,7 +115,7 @@
     border-radius: 24px;
     color: #1f1f1f;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 14px;
     min-height: 40px;
 }
@@ -152,7 +152,7 @@
     padding: 10px 16px;
     border-radius: 24px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     font-size: 14px;
     color: #1f1f1f;
     min-height: 40px;

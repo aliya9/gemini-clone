@@ -6,6 +6,22 @@
     justify-content: space-between;
     background-color: #fff;
     min-height: 100vh;
+    position: relative;
+}
+
+.main-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+}
+
+.app-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #6e6e6e;
+    margin: 0;
+    letter-spacing: -0.5px;
 }
 
 .main-container {
@@ -17,6 +33,7 @@
     justify-content: space-between;
     min-height: 100vh;
     flex: 1;
+    position: relative;
 }
 
 .main-content {
@@ -29,8 +46,8 @@
 
 .greet-wrapper {
     width: 100%;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .greet-wrapper.show {
@@ -54,7 +71,8 @@
     font-weight: 500;
     padding: 20px;
     text-align: center;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: 768px) {
@@ -84,7 +102,8 @@
     margin: 60px auto 0;
     padding: 0 20px;
     flex: 1;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .suggestion-card {
@@ -96,28 +115,28 @@
     border: 1px solid #e8eaed;
     border-radius: 16px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 64px;
     opacity: 1;
 }
 
 .greet-wrapper.show .suggestions .suggestion-card:nth-child(1) {
-    animation: fadeInUp 0.4s ease-out 0.05s forwards;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards;
     opacity: 0;
 }
 
 .greet-wrapper.show .suggestions .suggestion-card:nth-child(2) {
-    animation: fadeInUp 0.4s ease-out 0.1s forwards;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
     opacity: 0;
 }
 
 .greet-wrapper.show .suggestions .suggestion-card:nth-child(3) {
-    animation: fadeInUp 0.4s ease-out 0.15s forwards;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
     opacity: 0;
 }
 
 .greet-wrapper.show .suggestions .suggestion-card:nth-child(4) {
-    animation: fadeInUp 0.4s ease-out 0.2s forwards;
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
     opacity: 0;
 }
 
@@ -174,8 +193,8 @@
 .messages-wrapper {
     width: 100%;
     flex: 1;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .messages-wrapper.show {
@@ -244,7 +263,26 @@
 
 .main-bottom {
     width: 100%;
+    max-width: 900px;
     padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+    z-index: 10;
+}
+
+.main-bottom.centered {
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    padding: 0 20px;
+}
+
+.main-bottom.centered .input-container {
+    max-width: 100%;
 }
 
 .input-container {
@@ -259,7 +297,7 @@
     display: flex;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input-container:focus-within {
@@ -274,7 +312,7 @@
     font-size: 16px;
     padding: 0 10px;
     color: #333;
-    transition: all 0.2s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input-container input::placeholder {
@@ -293,11 +331,11 @@
     cursor: pointer;
     padding: 5px;
     border-radius: 50%;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .send-icon {
-    animation: fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInScale 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes fadeInScale {
@@ -321,5 +359,14 @@
     color: #666;
     margin-top: 15px;
     padding: 0 20px;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-bottom.centered .info {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    margin-top: 0;
 }
 
