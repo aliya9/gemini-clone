@@ -36,6 +36,9 @@ const Main = () => {
         <div className="main">
             <div className="main-header">
                 <h1 className="app-title">Gemini Clone</h1>
+                <div className="profile-icon">
+                    <img src={assets.user_icon} alt="Profile" />
+                </div>
             </div>
             <div className="main-container">
                 <div className="main-content">
