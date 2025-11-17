@@ -59,7 +59,7 @@ const Main = () => {
         await onSent(prompt);
     }
 
-    const handleKeyPress = (e) => {
+    const handleKeyDown = (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             handleSend();
@@ -139,15 +139,16 @@ const Main = () => {
                     </div>
                 </div>
 
-                <div className={`main-bottom ${currentChat.length > 0 ? 'centered' : ''}`}>
+                <div className="main-bottom">
                     <div className="input-container">
                         <input 
                             type="text" 
                             placeholder="Enter a prompt here" 
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyDown}
                             disabled={isLoading}
+                            autoFocus
                         />
                         <div className="input-icons">
                             <img src={assets.gallery_icon} alt="" />
