@@ -1,9 +1,10 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import './sidebar.css'
 import { assets } from "../../assets/assets";
+import { Context } from "../../context/context";
 
 const Sidebar = () => {
-    
+    const { chatHistory, startNewChat, loadChat } = useContext(Context);
     const [extended, setExtended] = useState(true)
     
     return (
@@ -16,7 +17,7 @@ const Sidebar = () => {
                 >
                     <img src={assets.menu_icon} alt="menu" />
                 </button>
-                <button className="new-chat">
+                <button className="new-chat" onClick={startNewChat}>
                     <img src={assets.plus_icon} alt="plus" />
                     {extended && <span>New Chat</span>}
                 </button>
@@ -24,18 +25,20 @@ const Sidebar = () => {
                     <div className="recent">
                         <p className="recent-title">Recent</p>
                         <div className="recent-list">
-                            <div className="recent-entry">
-                                <img src={assets.message_icon} alt="message" />
-                                <p>What is react...</p>
-                            </div>
-                            <div className="recent-entry">
-                                <img src={assets.message_icon} alt="message" />
-                                <p>Explain JavaScript...</p>
-                            </div>
-                            <div className="recent-entry">
-                                <img src={assets.message_icon} alt="message" />
-                                <p>How to use CSS...</p>
-                            </div>
+                            {chatHistory.length === 0 ? (
+                                <p className="no-chats">No recent chats</p>
+                            ) : (
+                                chatHistory.map((chat) => (
+                                    <div 
+                                        key={chat.id} 
+                                        className="recent-entry"
+                                        onClick={() => loadChat(chat.id)}
+                                    >
+                                        <img src={assets.message_icon} alt="message" />
+                                        <p>{chat.title}</p>
+                                    </div>
+                                ))
+                            )}
                         </div>
                     </div>
                 )}

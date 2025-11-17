@@ -136,6 +136,15 @@
     flex: 1;
 }
 
+.sidebar .no-chats {
+    padding: 20px 16px;
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    font-style: italic;
+    margin: 0;
+}
+
 .sidebar .bottom {
     display: flex;
     flex-direction: column;

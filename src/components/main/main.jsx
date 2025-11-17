@@ -1,11 +1,29 @@
-import React, { useState } from "react"
+import React, { useState, useContext, useEffect, useRef } from "react"
 import './main.css'
 import { assets } from "../../assets/assets";
+import { Context } from "../../context/context";
 
 const Main = () => {
+    const { onSent, currentChat, isLoading, error } = useContext(Context);
     const [input, setInput] = useState("")
     const [showSuggestions, setShowSuggestions] = useState(true)
-    const [isTyping, setIsTyping] = useState(false)
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [currentChat, isLoading]);
+
+    useEffect(() => {
+        if (currentChat.length > 0) {
+            setShowSuggestions(false);
+        } else {
+            setShowSuggestions(true);
+        }
+    }, [currentChat]);
 
     const suggestions = [
         {
@@ -26,10 +44,25 @@ const Main = () => {
         }
     ]
 
-    const handleSuggestionClick = (text) => {
+    const handleSuggestionClick = async (text) => {
         setInput(text)
         setShowSuggestions(false)
-        setIsTyping(true)
+        await onSent(text)
+        setInput("")
+    }
+
+    const handleSend = async () => {
+        if (!input.trim() || isLoading) return;
+        const prompt = input.trim();
+        setInput("");
+        await onSent(prompt);
+    }
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+        }
     }
 
     return (
@@ -62,37 +95,56 @@ const Main = () => {
                     </div>
                     <div className={`messages-wrapper ${!showSuggestions ? 'show' : 'hide'}`}>
                         <div className="messages">
-                            {/* Messages will appear here when chat starts */}
+                            {currentChat.map((message, index) => (
+                                <div key={index} className={`message ${message.role === "user" ? "user-message" : "ai-message"}`}>
+                                    <div className="message-content">
+                                        {message.role === "user" ? (
+                                            <div className="user-message-wrapper">
+                                                <img src={assets.user_icon} alt="user" className="message-icon" />
+                                                <p>{message.parts}</p>
+                                            </div>
+                                        ) : (
+                                            <div className="ai-message-wrapper">
+                                                <img src={assets.gemini_icon} alt="gemini" className="message-icon" />
+                                                <p>{message.parts}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                            {isLoading && (
+                                <div className="message ai-message">
+                                    <div className="message-content">
+                                        <div className="ai-message-wrapper">
+                                            <img src={assets.gemini_icon} alt="gemini" className="message-icon" />
+                                            <div className="typing-indicator">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {error && (
+                                <div className="error-message">
+                                    <p>Error: {error}</p>
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} />
                         </div>
                     </div>
                 </div>
 
-                <div className={`main-bottom ${isTyping ? 'centered' : ''}`}>
+                <div className={`main-bottom ${currentChat.length > 0 ? 'centered' : ''}`}>
                     <div className="input-container">
                         <input 
                             type="text" 
                             placeholder="Enter a prompt here" 
                             value={input}
-                            onChange={(e) => {
-                                setInput(e.target.value)
-                                if (e.target.value) {
-                                    setShowSuggestions(false)
-                                    setIsTyping(true)
-                                } else {
-                                    setShowSuggestions(true)
-                                    setIsTyping(false)
-                                }
-                            }}
-                            onFocus={() => {
-                                if (!input) {
-                                    setShowSuggestions(true)
-                                }
-                            }}
-                            onBlur={() => {
-                                if (!input) {
-                                    setIsTyping(false)
-                                }
-                            }}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            disabled={isLoading}
                         />
                         <div className="input-icons">
                             <img src={assets.gallery_icon} alt="" />
@@ -102,6 +154,8 @@ const Main = () => {
                                     src={assets.send_icon} 
                                     alt="send" 
                                     className="send-icon"
+                                    onClick={handleSend}
+                                    style={{ cursor: isLoading ? 'not-allowed' : 'pointer' }}
                                 />
                             )}
                         </div>
