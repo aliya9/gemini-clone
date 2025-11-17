@@ -16,7 +16,7 @@
 ## Example `.env` file:
 
 ```env
-VITE_GEMINI_API_KEY=AIzaSyAKmbW0APmWAoj3VRy6rsNp0Ff08_612oY
+VITE_GEMINI_API_KEY= xyz
 ```
 
 ## Getting a Gemini API Key
