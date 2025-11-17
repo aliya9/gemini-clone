@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
+import ReactMarkdown from 'react-markdown'
 import './main.css'
 import { assets } from "../../assets/assets";
 import { Context } from "../../context/context";
@@ -106,7 +107,9 @@ const Main = () => {
                                         ) : (
                                             <div className="ai-message-wrapper">
                                                 <img src={assets.gemini_icon} alt="gemini" className="message-icon" />
-                                                <p>{message.parts}</p>
+                                                <div className="markdown-content">
+                                                    <ReactMarkdown>{message.parts}</ReactMarkdown>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
